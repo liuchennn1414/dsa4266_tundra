@@ -1,7 +1,9 @@
 # dsa4266_tundra
 
 If you are running the code locally, I recommend using conda as a environment control tool
+
 https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html
+
 After installation of conda, in your terminal(skip if not using conda):
 ```
 conda create -n DSA4266_tundra_env python=3.10
