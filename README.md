@@ -3,6 +3,7 @@
 ## Project Flow 
 ---
 1. **Data Parsing & EDA**
+
 The given dataset has been parsed and form 2 version:
 - Version 1: row version, each reading is one row, one transcript_id can have multiple row. The dimension of this dataset is ~10M x 14 
 - Version 2: column version, the reading for each transcript has been aggregated and the mean, std and median has been calculated for each of the 9 columns. Feature selection has been performed to reduce dimensionality. 
@@ -18,6 +19,7 @@ Due to the imbalance nature of our data, SMOTE has been conducted for the train 
 To avoid any latent weight due to different range for each column, we performed minmax standardisation to train set, and then for test set, seperately. 
 
 3. **Models** 
+
 For each version, two models has been studied: 
 - XGBoost 
 - NN (LTSM for version2)
