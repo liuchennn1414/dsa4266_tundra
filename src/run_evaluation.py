@@ -49,7 +49,7 @@ def run_evaluation(dataset_path, info_path, xgb_model, lstm_model, weights):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='data/dataset1000.json')
-    parser.add_argument('--info', type=str, default='data/data.info')
+    parser.add_argument('--info', type=str, default='data/data1000.info')
     parser.add_argument('--xgb_model', type=str, default='../ensemble/best_xgboost.json')
     parser.add_argument('--lstm_model', type=str, default='../ensemble/best_lstm_tuned.h5')
     parser.add_argument('--weights', type=str, default='../ensemble/ensemble_weights.pkl')
