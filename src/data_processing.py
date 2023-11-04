@@ -3,18 +3,23 @@ import pandas as pd
 import numpy as np
 import joblib
 
-# retrieved from RFE feature selection [DO NOT CHANGE]
-rfe = ['avg_1-flank_mean',
- 'avg_central_std',
- 'avg_1+flank_std',
- 'med_1-flank_mean',
- 'med_central_std',
- 'std_central_std',
- 'std_central_mean',
- 'std_1+flank_mean',
- 'seq_right']
+# results from RFE feature selection [DO NOT CHANGE]
+rfe = ['avg_central_mean', 
+        'avg_1+flank_std', 
+        'med_central_std', 
+        'med_central_mean', 
+        'med_1+flank_std', 
+        'std_1-flank_std', 
+        'std_1-flank_mean', 
+        'std_central_std', 
+        'std_central_mean', 
+        'std_1+flank_std', 
+        'std_1+flank_mean', 
+        'seq_left', 
+        'seq_center', 
+        'seq_right']
 
-# label encoder and min max scaler for data processing [DO NOT CHANGE]
+# label encoder and min max scaler [DO NOT CHANGE]
 seq_label_encoder = 'label_encoder.pkl'
 min_max_scaler = 'minmax_scaler.pkl'
 
@@ -52,6 +57,12 @@ def process_dataset(dataset_path):
 
     return result_df
 
+def normalize_data(df):
+    # normalize data
+    scaler = joblib.load(min_max_scaler)
+    df = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+    return df
+
 def process_data(dataset_path):
     data_df = process_dataset(dataset_path)
     
@@ -70,18 +81,16 @@ def process_data(dataset_path):
     normalize_df = data_df[rfe]
     data_df = data_df[['transcript_id', 'transcript_position']]
 
-    # normalize data
-    scaler = joblib.load(min_max_scaler)
-    normalize_df = pd.DataFrame(scaler.fit_transform(normalize_df), columns=normalize_df.columns)
-
     # merge data
     data_df = pd.concat([data_df, normalize_df], axis=1)
 
     return data_df
 
-
 if __name__ == "__main__":
-    dataset_path = 'data/dataset0.json'
+    dataset_path = 'data/dataset1000.json'
     processed_df = process_data(dataset_path)
-    processed_df.to_csv(output_path, index=False)
+    normalize_df = normalize_data(processed_df.drop(['transcript_id'], axis=1))
+    # processed_df.to_csv(output_path, index=False)
     print(processed_df.head())
+    print("*"*50)
+    print(normalize_df.head())

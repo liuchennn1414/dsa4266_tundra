@@ -1,0 +1,12 @@
+name: dsa4266_tundra
+channels:
+  - defaults
+  - conda-forge
+  - anaconda
+  - pytorch
+  - tensorflow
+dependencies:
+  - python=3.10.12
+  - pip=23.3
+  - pip:
+    - -r requirements.txt
