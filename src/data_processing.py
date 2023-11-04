@@ -1,9 +1,9 @@
 import json
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import LabelEncoder
 import joblib
-z
+
+# retrieved from RFE feature selection [DO NOT CHANGE]
 rfe = ['avg_1-flank_mean',
  'avg_central_std',
  'avg_1+flank_std',
@@ -14,8 +14,9 @@ rfe = ['avg_1-flank_mean',
  'std_1+flank_mean',
  'seq_right']
 
+# label encoder and min max scaler for data processing [DO NOT CHANGE]
 seq_label_encoder = 'label_encoder.pkl'
-min_max_scaler = 'min_max_scaler.pkl'
+min_max_scaler = 'minmax_scaler.pkl'
 
 def process_dataset(dataset_path):
     # process the json dataset and returns a dataframe
@@ -51,42 +52,36 @@ def process_dataset(dataset_path):
 
     return result_df
 
-def process_data(dataset_path, info_path, output_path):
-    info = pd.read_csv(info_path)
-    info['transcript_position'] = info['transcript_position'].astype(int)
-
+def process_data(dataset_path):
     data_df = process_dataset(dataset_path)
-
-    # merge data with info
-    merged_data = pd.merge(data_df, info, on=['transcript_id', 'transcript_position'], how='inner')
-    # merged_data["transcript_id"] = merged_data["transcript_id"].str.replace('ENST', '').astype(int)
-    # merged_data["gene_id"] = merged_data["gene_id"].str.replace('ENSG', '').astype(int)
-    merged_data['seq_left'] = merged_data['sequence'].str[0:5]
-    merged_data['seq_center'] = merged_data['sequence'].str[1:6]
-    merged_data['seq_right'] = merged_data['sequence'].str[2:7]
+    
+    # convert sequence to 5-mer
+    data_df['seq_left'] = data_df['sequence'].str[0:5]
+    data_df['seq_center'] = data_df['sequence'].str[1:6]
+    data_df['seq_right'] = data_df['sequence'].str[2:7]
 
     label_encoder = joblib.load(seq_label_encoder)
-    df_le = merged_data.copy()
     seq_data = ['seq_left','seq_center','seq_right']
     for seq in seq_data: 
-        encoded_labels = label_encoder.fit_transform(df_le[seq])
-        df_le[seq] = encoded_labels
-    
+        encoded_labels = label_encoder.fit_transform(data_df[seq])
+        data_df[seq] = encoded_labels
+
     # choose feature selected by RFE
-    df_le = df_le[rfe]
+    normalize_df = data_df[rfe]
+    data_df = data_df[['transcript_id', 'transcript_position']]
 
     # normalize data
-    min_max_scaler = joblib.load(min_max_scaler)
-    df_le = pd.DataFrame(min_max_scaler.fit_transform(df_le), columns=df_le.columns)
+    scaler = joblib.load(min_max_scaler)
+    normalize_df = pd.DataFrame(scaler.fit_transform(normalize_df), columns=normalize_df.columns)
 
-    # save processed data
-    df_le.to_csv(output_path, index=False)
-    return df_le
+    # merge data
+    data_df = pd.concat([data_df, normalize_df], axis=1)
+
+    return data_df
 
 
 if __name__ == "__main__":
     dataset_path = 'data/dataset0.json'
-    info_path = 'data/data.info'
-    output_path = 'data/processed_data.csv'
-    processed_df = process_data(dataset_path, info_path, output_path)
+    processed_df = process_data(dataset_path)
+    processed_df.to_csv(output_path, index=False)
     print(processed_df.head())
