@@ -25,14 +25,16 @@ source $HOME/miniconda3/bin/activate
 printf '\n# add path to conda\nexport PATH="$HOME/miniconda3/bin:$PATH"\n' >> ~/.bashrc
 ```
 ## Setup environment
-Using conda, you can easily setup the environment by running the following commands:
+Using conda, you can setup the environment by running the following commands:
 ```
 git clone https://github.com/liuchennn1414/dsa4266_tundra.git
 cd dsa4266_tundra/src
 conda env create -f environment.yml
 conda activate dsa4266_tundra
 ```
-ALTERNATIVELY, if conda is not working, you can install python manually (not recommended):
+**Note: It is common to wait for a few minutes at `Collecting package metadata (repodata.json)`**
+
+ALTERNATIVELY, you can install python manually (may run into version conflicts):
 ```
 git clone https://github.com/liuchennn1414/dsa4266_tundra.git
 cd dsa4266_tundra/src
