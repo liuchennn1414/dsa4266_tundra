@@ -2,9 +2,6 @@ import joblib
 import argparse
 import pandas as pd
 import xgboost as xgb
-import warnings
-# Suppress specific TensorFlow CPU optimization warning
-warnings.filterwarnings("ignore", category=Warning, module="tensorflow")
 from tensorflow.keras.models import load_model
 
 from data_processing import process_data, normalize_data
