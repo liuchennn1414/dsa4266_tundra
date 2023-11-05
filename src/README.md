@@ -1,6 +1,6 @@
 # Ensembling Model for m6A site prediction
 [![GitHub Stars](https://img.shields.io/github/stars/liuchennn1414/dsa4266_tundra?style=social)](https://github.com/liuchennn1414/dsa4266_tundra)
-[![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.comliuchennn1414/dsa4266_tundra/blob/main/LICENSE)
+[![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/liuchennn1414/dsa4266_tundra/blob/main/LICENSE)
 ## Introduction
 This repository contains the code for the paper "Ensembling Model for m6A site prediction". The code is written in Python3.10 and tested on Ubuntu 22.04. 
 
