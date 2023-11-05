@@ -45,8 +45,8 @@ git clone https://github.com/liuchennn1414/dsa4266_tundra.git
 cd dsa4266_tundra/src
 conda env create -f environment.yml
 conda activate dsa4266_tundra
-Note: This will take about 5 to 10 minutes
 ```
+<I>**Note: This will take about 5 to 10 minutes**</I>
 <details>
 <summary><B>Alternative: Manual Python Installation</B></summary>
 
@@ -83,7 +83,7 @@ If you wish to evaluate our model with your own data.
 ```
 python3 run_evaluation.py --dataset your/path/to/dataset.json --info your/path/to/data.info
 ```
-**Note: Your data.info should contain the true labels.**
+<I>**Note: Your data.info should contain the true labels.**</I>
 </details>
 
 ## Inference
