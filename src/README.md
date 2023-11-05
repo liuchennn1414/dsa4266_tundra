@@ -1,6 +1,6 @@
 # Ensembling Model for m6A site prediction
 [![GitHub Stars](https://img.shields.io/github/stars/liuchennn1414/dsa4266_tundra?style=social)](https://github.com/liuchennn1414/dsa4266_tundra)
-[![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.comliuchennn1414/dsa4266_tundra/blob/main/LICENSE)
+[![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/liuchennn1414/dsa4266_tundra/blob/main/LICENSE)
 ## Introduction
 This repository contains the code for the paper "Ensembling Model for m6A site prediction". The code is written in Python3.10 and tested on Ubuntu 22.04. 
 
@@ -70,7 +70,7 @@ pip install -r requirements.txt
 
 ## Evaluation
 ### Evaluation using default datasets
-We already prepared a pair of [1000 lines dataset.json](data/dataset1000.json) and [1000 lines data.info](data1000.info) in the `data` folder for faster evaluation. Running the following command will do perform inference and evaluation using our datasets.
+We already prepared a pair of [1000 lines dataset.json](data/dataset1000.json) and [1000 lines data.info](data1000.info) in the `data` folder for faster evaluation. Running the following command will perform inference and evaluation using our datasets.
 ```
 python3 run_evaluation.py
 ```
