@@ -39,8 +39,7 @@ ALTERNATIVELY, you can install python manually (may run into version conflicts):
 git clone https://github.com/liuchennn1414/dsa4266_tundra.git
 cd dsa4266_tundra/src
 sudo apt update
-sudo apt-get install -y python3.10
-sudo apt install -y python3-pip
+sudo apt-get install -y python3.10 python3-pip
 pip install -r requirements.txt
 ```
 
