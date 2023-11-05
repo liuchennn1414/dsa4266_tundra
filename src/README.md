@@ -70,7 +70,7 @@ pip install -r requirements.txt
 
 ## Evaluation
 ### Evaluation using default datasets
-We already prepared a pair of [1000 lines dataset.json](data/dataset1000.json) and [1000 lines data.info](data1000.info) in the `data` folder for faster evaluation. Running the following command will do perform inference and evaluation using our datasets.
+We already prepared a pair of [1000 lines dataset.json](data/dataset1000.json) and [1000 lines data.info](data1000.info) in the `data` folder for faster evaluation. Running the following command will perform inference and evaluation using our datasets.
 ```
 python3 run_evaluation.py
 ```
