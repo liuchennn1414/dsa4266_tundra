@@ -2,18 +2,23 @@
 [![GitHub Stars](https://img.shields.io/github/stars/liuchennn1414/dsa4266_tundra?style=social)](https://github.com/liuchennn1414/dsa4266_tundra)
 [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/liuchennn1414/dsa4266_tundra/blob/main/LICENSE)
 ## Introduction
-This repository contains the code for the paper "Ensembling Model for m6A site prediction". The code is written in Python3.10 and tested on Ubuntu 22.04. 
+This repository contains the code for the paper "Ensembling Model for m6A site prediction". The code is written in Python3.10 and tested on Ubuntu 20.04. 
 
 ## Model performance
 We summarize the evaluation results as follows. We also provide the fine-tuned weights. The detailed documentation of our project flow the models can be found at [`docs/README.md`](docs/README.md).
 
 | name | model checkpoint | ROC AUC | PR AUC  | Average Score |
 |------------|:----------------------------------------|:----------:|:-------:|:-----:|
-| xgboost | [best_xgboost](model_checkpoints/best_xgboost.json) | 0 | 0 | 0 |
-| LSTM | [best_lstm](model_checkpoints/best_lstm.h5) | 0 | 0 | 0 |
-| ensemble | [ensemble_weights](model_checkpoints/ensemble_weights.pkl) | 0 | 0 | 0 |
+| xgboost | [best_xgboost](model_checkpoints/best_xgboost.json) | 0.73141 | 0.39297 | 0.56219 |
+| LSTM | [best_lstm](model_checkpoints/best_lstm.h5) | 0.87304 | 0.22735 | 0.55019 |
+| ensemble | [ensemble_weights](model_checkpoints/ensemble_weights.pkl) | 0.88495 | 0.42470 | 0.65482 |
 
 ## Setup Environment
+
+### 0. Tested System Environment
+- Ubuntu 20 04 Large
+- t3.medium (or above)
+
 ### 1. Make sure you have installed Conda
 ```
 conda --version
@@ -29,11 +34,11 @@ conda --version
     ```
     bash ~/miniconda.sh -b
     ```
-3. Remove the Miniconda installer
+3. Remove the Miniconda installer (OPTIONAL)
     ```
     rm ~/miniconda.sh
     ```
-4. Activate conda
+4. Activate conda (If you accidentally close the terminal, you will need to run this command again)
     ```
     source $HOME/miniconda3/bin/activate
     ```
@@ -44,12 +49,12 @@ conda --version
 </details>
 
 ### 2. Create a new Conda environment (This will take about 5 to 10 minutes)
-    ```bash
-    git clone https://github.com/liuchennn1414/dsa4266_tundra.git
-    cd dsa4266_tundra
-    conda env create -f environment.yml
-    conda activate dsa4266_tundra
-    ```
+```bash
+git clone https://github.com/liuchennn1414/dsa4266_tundra.git
+cd dsa4266_tundra
+conda env create -f environment.yml
+conda activate dsa4266_tundra
+```
 <details>
 <summary><U>Alternative: Manual Python Installation (without Conda)</U></summary>
 
@@ -73,26 +78,35 @@ You can also install Python manually by running the following commands, but you 
     ```
 </details>
 
+## Prediction
+### Prediction using our default datasets
+We have prepared a pair of [1000 lines dataset.json](data/dataset1000.json) and [1000 lines data.info](data1000.info) in the `data` folder for faster prediction. Running the following command will perform prediction using our default datasets.
+```
+python3 inference.py
+```
+To view the prediction results:
+```
+head inference_output/ensembled_result.csv
+```
+### Prediction with your own data (OPTIONAL)
+```
+python3 inference.py --dataset your/path/to/dataset.json --output_path inference_output/your_output_name.json
+```
+
+<I>Note: You do not need the data.info for inference</I>
+
 ## Evaluation
-### Evaluation using our default datasets
-We have prepared a pair of [1000 lines dataset.json](data/dataset1000.json) and [1000 lines data.info](data1000.info) in the `data` folder for faster evaluation. Running the following command will perform inference and evaluation using our default datasets.
+
+### Evaluation using our default datasets (OPTIONAL)
+The evaluated results will be different from the table in [model performance](#model-performance) because we are using different datasets. 
 ```
 python3 run_evaluation.py
 ```
 
-### Evaluation using your own datasets
+### Evaluation using your own datasets (OPTIONAL)
 
 If you wish to evaluate our model with your own data.
 ```
 python3 run_evaluation.py --dataset your/path/to/dataset.json --info your/path/to/data.info
 ```
 <I>Note: Your data.info should contain the true labels.</I>
-
-## Inference
-To do inference with your own data:
-```
-python3 inference.py --dataset your/path/to/dataset.json --output_path inference_output/your_output_name.json
-```
-You can find your interence results in the `inference_output` folder.
-
-<I>Note: You do not need a data.info for inference</I>
