@@ -15,7 +15,7 @@ We summarize the evaluation results as follows. We also provide the fine-tuned w
 
 ## Setup Environment
 
-### 0. Tested System Environment
+### 0. Instance Requirements
 - Ubuntu 20 04 Large
 - t3.medium (or above)
 
@@ -69,7 +69,7 @@ You can also install Python manually by running the following commands, but you 
     ```
 2. Check if Python is already installed:
     ```
-    python --version
+    python3 --version
     pip --version
     ```
 3. Then install the required packages:
@@ -82,31 +82,31 @@ You can also install Python manually by running the following commands, but you 
 ### Prediction using our default datasets
 We have prepared a pair of [1000 lines dataset.json](data/dataset1000.json) and [1000 lines data.info](data1000.info) in the `data` folder for faster prediction. Running the following command will perform prediction using our default datasets.
 ```
-python3 inference.py
+python3 prediction.py
 ```
 To view the prediction results:
 ```
-head inference_output/ensembled_result.csv
+head prediction_output/ensembled_result.csv
 ```
 ### Prediction with your own data (OPTIONAL)
 ```
-python3 inference.py --dataset your/path/to/dataset.json --output_path inference_output/your_output_name.json
+python3 prediction.py --dataset your/path/to/dataset.json --output_path prediction_output/your_output_name.json
 ```
 
-<I>Note: You do not need the data.info for inference</I>
+<I>Note: You do not need the data.info for prediction</I>
 
-## Evaluation
+## Evaluation (OPTIONAL)
 
 ### Evaluation using our default datasets (OPTIONAL)
 The evaluated results will be different from the table in [model performance](#model-performance) because we are using different datasets. 
 ```
-python3 run_evaluation.py
+python3 evaluation.py
 ```
 
 ### Evaluation using your own datasets (OPTIONAL)
 
 If you wish to evaluate our model with your own data.
 ```
-python3 run_evaluation.py --dataset your/path/to/dataset.json --info your/path/to/data.info
+python3 evaluation.py --dataset your/path/to/dataset.json --info your/path/to/data.info
 ```
 <I>Note: Your data.info should contain the true labels.</I>

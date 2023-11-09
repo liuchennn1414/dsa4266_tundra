@@ -4,7 +4,7 @@ from sklearn.metrics import classification_report, roc_curve, auc
 from sklearn.metrics import average_precision_score, precision_recall_curve
 
 from data_processing import process_data, normalize_data
-from inference import run_inference
+from prediction import run_prediction
 
 def merge_data(data_df, info_df):
     info_df['transcript_position'] = info_df['transcript_position'].astype(int)
@@ -29,7 +29,7 @@ def run_evaluation(dataset_path, info_path, xgb_model, lstm_model, weights):
     normalize_X_test = normalize_data(X_test)
 
     # predict
-    ensembled_probability = run_inference(normalize_X_test, 
+    ensembled_probability = run_prediction(normalize_X_test, 
                                           xgb_model, 
                                           lstm_model, 
                                           weights)
