@@ -30,10 +30,10 @@ def run_inference(X_test, xgb_model, lstm_model, weights):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='data/dataset1000.json')
-    parser.add_argument('--xgb_model', type=str, default='../ensemble/best_xgboost.json')
-    parser.add_argument('--lstm_model', type=str, default='../ensemble/best_lstm_tuned.h5')
-    parser.add_argument('--weights', type=str, default='../ensemble/ensemble_weights.pkl')
-    parser.add_argument('--output_path', type=str, default='output/ensembled_result.csv')
+    parser.add_argument('--xgb_model', type=str, default='model_checkpoints/best_xgboost.json')
+    parser.add_argument('--lstm_model', type=str, default='model_checkpoints/best_lstm.h5')
+    parser.add_argument('--weights', type=str, default='model_checkpoints/ensemble_weights.pkl')
+    parser.add_argument('--output_path', type=str, default='inference_output/ensembled_result.csv')
     args = parser.parse_args()
 
     data_df = process_data(args.dataset)

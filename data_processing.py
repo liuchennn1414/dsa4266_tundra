@@ -20,8 +20,8 @@ rfe = ['avg_central_mean',
         'seq_right']
 
 # label encoder and min max scaler [DO NOT CHANGE]
-seq_label_encoder = 'label_encoder.pkl'
-min_max_scaler = 'minmax_scaler.pkl'
+seq_label_encoder = 'model_checkpoints/label_encoder.pkl'
+min_max_scaler = 'model_checkpoints/minmax_scaler.pkl'
 
 def process_dataset(dataset_path):
     # process the json dataset and returns a dataframe

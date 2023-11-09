@@ -1,28 +1,98 @@
-# dsa4266_tundra
+# Ensembling Model for m6A site prediction
+[![GitHub Stars](https://img.shields.io/github/stars/liuchennn1414/dsa4266_tundra?style=social)](https://github.com/liuchennn1414/dsa4266_tundra)
+[![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/liuchennn1414/dsa4266_tundra/blob/main/LICENSE)
+## Introduction
+This repository contains the code for the paper "Ensembling Model for m6A site prediction". The code is written in Python3.10 and tested on Ubuntu 22.04. 
 
-## Project Flow 
----
-1. **Data Parsing & EDA**
+## Model performance
+We summarize the evaluation results as follows. We also provide the fine-tuned weights. The detailed documentation of our project flow the models can be found at [`docs/README.md`](docs/README.md).
 
-The given dataset has been parsed and form 2 version:
-- Version 1: row version, each reading is one row, one transcript_id can have multiple row. The dimension of this dataset is ~10M x 14 
-- Version 2: column version, the reading for each transcript has been aggregated and the mean, std and median has been calculated for each of the 9 columns. Feature selection has been performed to reduce dimensionality. 
+| name | model checkpoint | ROC AUC | PR AUC  | Average Score |
+|------------|:----------------------------------------|:----------:|:-------:|:-----:|
+| xgboost | [best_xgboost](model_checkpoints/best_xgboost.json) | 0 | 0 | 0 |
+| LSTM | [best_lstm](model_checkpoints/best_lstm.h5) | 0 | 0 | 0 |
+| ensemble | [ensemble_weights](model_checkpoints/ensemble_weights.pkl) | 0 | 0 | 0 |
 
-2. **Data preprocessing**
-- Featuer Engineering 
-For each version, we processed the sequence data by seperating it to seq_left (first 5), seq_center (middle 5) and seq_right(last 5). For each column, label encoding has been conducted to convert the column to numeric. (Aware that some order has been introduced inside, do we want to address this?)
-- Train Test Split 
-We split our train and test set by gene_id, i.e. transcripts under same gene_id will all be present in either test or train set, but not both. This is to avoid any leakage of information about the genes. 
-- Oversampling with smote
-Due to the imbalance nature of our data, SMOTE has been conducted for the train set to balance the 0 and 1 labels. The test set remains imbalamce. 
-- Minmax standardisation 
-To avoid any latent weight due to different range for each column, we performed minmax standardisation to train set, and then for test set, seperately. 
+## Setup Environment
+### 1. Make sure you have installed Conda
+```
+conda --version
+```
+<details>
+<summary><U>Step-by-step Conda Installation</U></summary>
 
-3. **Models** 
+1. download the installer
+    ```
+    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+    ```
+2. install conda quietly
+    ```
+    bash ~/miniconda.sh -b
+    ```
+3. Remove the Miniconda installer
+    ```
+    rm ~/miniconda.sh
+    ```
+4. Activate conda
+    ```
+    source $HOME/miniconda3/bin/activate
+    ```
+5. Add conda to your PATH (OPTIONAL)
+    ```
+    printf '\n# add path to conda\nexport PATH="$HOME/miniconda3/bin:$PATH"\n' >> ~/.bashrc
+    ```
+</details>
 
-For each version, two models has been studied: 
-- XGBoost 
-- NN (LTSM for version2)
-We have also studied other models such as logistic regression and SVM. Comparing the score, we narrowed down to XGBoost and NN only. 
-For each model, hyperparameter tuning has also been conducted with innovative tuning method such as Bayesian Optimisation with Hyperopt. We then study the classification_report anf plot out the ROC curve to evaluate the quality of our model. 
+### 2. Create a new Conda environment (This will take about 5 to 10 minutes)
+    ```bash
+    git clone https://github.com/liuchennn1414/dsa4266_tundra.git
+    cd dsa4266_tundra
+    conda env create -f environment.yml
+    conda activate dsa4266_tundra
+    ```
+<details>
+<summary><U>Alternative: Manual Python Installation (without Conda)</U></summary>
 
+You can also install Python manually by running the following commands, but you may run into version conflicts. 
+
+1. Install python:
+    ```
+    git clone https://github.com/liuchennn1414/dsa4266_tundra.git
+    cd dsa4266_tundra
+    sudo apt update
+    sudo apt-get install -y python3.10 python3-pip
+    ```
+2. Check if Python is already installed:
+    ```
+    python --version
+    pip --version
+    ```
+3. Then install the required packages:
+    ```
+    pip install -r requirements.txt
+    ```
+</details>
+
+## Evaluation
+### Evaluation using our default datasets
+We have prepared a pair of [1000 lines dataset.json](data/dataset1000.json) and [1000 lines data.info](data1000.info) in the `data` folder for faster evaluation. Running the following command will perform inference and evaluation using our default datasets.
+```
+python3 run_evaluation.py
+```
+
+### Evaluation using your own datasets
+
+If you wish to evaluate our model with your own data.
+```
+python3 run_evaluation.py --dataset your/path/to/dataset.json --info your/path/to/data.info
+```
+<I>Note: Your data.info should contain the true labels.</I>
+
+## Inference
+To do inference with your own data:
+```
+python3 inference.py --dataset your/path/to/dataset.json --output_path inference_output/your_output_name.json
+```
+You can find your interence results in the `inference_output` folder.
+
+<I>Note: You do not need a data.info for inference</I>
