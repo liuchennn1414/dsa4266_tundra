@@ -27,3 +27,10 @@ The dataset is processed with the following additional steps:
 4. Merged result_df with the label data. The final merged_data df have 2,436,760 rows and 31 columns. 
 
 The first result was quite close to the xgboost method with aggregated data, but it will take too long to find the best parameters for the model. Hence, we decided to use the aggregated data version for the final model.
+
+## other_models
+We also kept a version of simple neural network (nn) and random forest in this folder. 
+
+The nn.ipynb is initially used while exploring row version. We chose LSTM later for the column version which outperform the row vserion. 
+
+The random forest is for column vserion, and it is an extra exploration to test if it outperform XGBoost and LSTM. Since the ROC & PR result is not outstanding, this model is not selected. 
