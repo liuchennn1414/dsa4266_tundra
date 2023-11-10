@@ -21,7 +21,7 @@ The overall structure of the repository is as such:
     * [LSTM_columns_final_tuned.ipynb](../lstm/LSTM_columns_final_tuned.ipynb): Full set code for LSTM 
 * [ensemble](../ensemble): Code for ensemble model, this contains our final model. 
     * [ensemble_method.ipynb](../ensemble/ensemble_method.ipynb): Exploration code for ensemble method, including 4 different ensemble methods. 
-    * [ensemble_method.ipynb](../ensemble/ensemble_workflow.ipynb): Cleaned up version using the final selected ensemble model. 
+    * [ensemble_workflow.ipynb](../ensemble/ensemble_workflow.ipynb): Cleaned up version using the final selected ensemble model. 
 * [model_checkpoints](../model_checkpoints): Checkpoint for our final model. 
 * [prediction](../prediction): Task 2 prediction output for SG-NEX samples and analysis over the prediction results. 
     * file name with merge_data: files that is used for extra data processing
