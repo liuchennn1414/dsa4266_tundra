@@ -5,7 +5,7 @@
 This repository contains the code for the paper "Ensembling Model for m6A site prediction". The code is written in Python3.10 and tested on Ubuntu 20.04. 
 
 ## Model performance
-We summarize the evaluation results as follows. We also provide the fine-tuned weights. The detailed documentation of our project flow the models can be found at [`docs/README.md`](docs/README.md).
+The mode we are using is a **weighted ensembling model of XGBoost and LSTM**, weighted based on MAE. We summarize the evaluation results as follows. We also provide the fine-tuned weights. **The detailed documentation of our project flow the models can be found at [`docs/README.md`](docs/README.md)**.
 
 | name | model checkpoint | ROC AUC | PR AUC  | Average Score |
 |------------|:----------------------------------------|:----------:|:-------:|:-----:|
