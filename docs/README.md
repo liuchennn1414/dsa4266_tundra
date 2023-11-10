@@ -11,7 +11,7 @@ The overall structure of the repository is as such:
 * [data_preprocessing](../data_preprocessing): Contains code for data parsing & EDA process. 
     * [merge_data.ipynb](../data_preprocessing/merge_data.ipynb): Code for data parsing (column version)
     * [variable_selection.ipynb](../data_preprocessing/variable_selection.ipynb): Code for feature selection (RFE & Lasso) 
-    * [encoding_train_test_rfe.ipynb](../data_preprocessing/mencoding_train_test_rfe.ipynb): Code for Feature Engineering, train test split and undersampling. 
+    * [encoding_train_test_rfe.ipynb](../data_preprocessing/encoding_train_test_rfe.ipynb): Code for Feature Engineering, train test split and undersampling. 
     * [EDA.ipynb](../data_preprocessing/EDA.ipynb): Code for EDA
 * [xgboost](../xgboost): Code for model XGBoost (column version)
     * [xgboost_rfe.ipynb](../xgboost/xgboost_rfe.ipynb): Exploration code for XGBoost, contains baseline XGBoost, and bayesian tuning process. 
