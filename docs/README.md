@@ -1,7 +1,6 @@
 # dsa4266_tundra
 
 ## Overview 
---- 
 This repoistory records all scripts & documentations for NUS AY23/24 Sem 1 DSA4266 project done by team tundra. Our team members are: Joey Li Jin Tao, Chen Yichi, Liu Chen and You Bohan. 
 
 The primary objective of this project to develop a machine learning method to detect m6A RNA modifications in RNA molecules from direct RNA-Seq data; Following by that, we aim to predict m6A RNA modifications in 12 samples of direct RNA from the SG-NEx data using the model trained, and conduct data analysis over the prediction result. 
@@ -32,17 +31,17 @@ The overall structure of the repository is as such:
 * Documents not in folder are scripts for student evaluation purpose.
 
 ## Project Flow 
----
 
 The flow of our project is as follow: 
 
+---
 ### 1. Data Parsing & EDA
 The given dataset has been parsed and form 2 version:
 - Version 1: row version, each reading is one row, one transcript_id can have multiple row. 
 - Version 2: column version, the reading for each transcript has been aggregated and the mean, std and median has been calculated for each of the 9 columns. This is the method we selected base on model performance and time complexity. [merge_data.ipynb](../data_preprocessing/merge_data.ipynb)
 - EDA to study the distribution and correlation among attributes, give inspiration for data preprocessing later. [EDA.ipynb](../data_preprocessing/EDA.ipynb)
 
-
+---
 ### 2. Data preprocessing
 The following steps have been done for data preprocessing: 
 #### Featuer Engineering 
@@ -58,6 +57,7 @@ To avoid any latent weight due to different range for each column, we performed 
 
 See more details here: [variable_selection.ipynb](../data_preprocessing/variable_selection.ipynb); [encoding_train_test_rfe.ipynb](../data_preprocessing/mencoding_train_test_rfe.ipynb)
 
+---
 ### 3. Models and Evaluation 
 
 #### Stage 1: Model exploration 
@@ -85,15 +85,17 @@ Noticing from intermediate submission that the result for LSTM is slighly better
 
 We then compare both the ROC AUC and PR AUC result, and have chosen the weighted ensemble model of XGBoost & lSTM using MAE as our final model. 
 
+---
 ### 4. Prediction and Analysis 
-We used the weighted ensemble model of XGBoost & lSTM using MAE to generate predictions for the 12 samples from SG-NEX data. We then performed 3 different analysis over it: 
+We used the weighted ensemble model of XGBoost & lSTM using MAE to generate predictions for the 12 samples from SG-NEX data. The prediction results can be downloaded [here](https://drive.google.com/drive/folders/17qPZh2BZ2AEghl2QDeXQ8CpqGi8OnXz4?usp=sharing). We then performed 3 different analysis over it: 
 1. Feature difference between modified & unmodified transcript across cell lines. [Click here for more details.](../predictions/liuchen_analysis.ipynb)
-2. Compare m6A enrichment score across cell lines 
-3. Investigate individual sites / genes 
+2. Compare m6A enrichment score across cell lines [Click here for more details.](../predictions/prediction_analysis_part2.ipynb)
+3. Investigate individual sites / genes [Click here for more details.](../predictions/predict_analytics_bohan.ipynb)
 
 You can view our prediction analysis result in the video / through our report. 
 
-### Conclusion
+---
+### 5.Conclusion
 The capability of correctly prediction m6A modification is of great importance for both scientific and medical breakthroughs. We have reflect on some space of improvement to further improve our model: 
 
 1. We have chosen to keep sequence outside of feature selection process as we believe the sequence will bring some important pattern information. However, it is worthy to try exploring including it into our feature selection process. 
